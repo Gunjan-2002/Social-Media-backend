@@ -1,4 +1,3 @@
-import { log } from "console";
 import DataUriParser  from "datauri/parser.js";
 import path from "path";
 
