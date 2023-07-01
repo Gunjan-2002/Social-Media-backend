@@ -17,7 +17,6 @@ const UserSchema = new mongoose.Schema(
     email: {
       type: String,
       required: true,
-      min: 2,
       max: 50,
       unique: true,
     },
@@ -27,8 +26,14 @@ const UserSchema = new mongoose.Schema(
       min: 5,
     },
     picturePath: {
-      type: String,
-      default: "",
+      public_id: {
+        type: String,
+        // required: true,
+      },
+      url: {
+        type: String,
+        // required: true,
+      },
     },
     friends: {
       type: Array,

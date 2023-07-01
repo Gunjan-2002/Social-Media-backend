@@ -1,4 +1,5 @@
-import jwt  from "jsonwebtoken";
+import jwt from "jsonwebtoken";
+import User from "../models/User.js";
 
 export const verifyToken = async (req, res, next) => {
   try {
@@ -13,12 +14,20 @@ export const verifyToken = async (req, res, next) => {
     }
 
     const verified = jwt.verify(token, process.env.JWT_SECRET);
-
     req.user = verified;
-    next();
 
+    if (verified) {
+      const user = await User.findById(verified.id);
 
-  } catch (error) {
-    res.status(500).json({ error: error.message , message: "Token Expired" });
+      req.userAuth = user;
+      // console.log();
+
+      next();
+    } else {
+      const err = new Error("Token expired/invalid");
+      next(err);
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 };

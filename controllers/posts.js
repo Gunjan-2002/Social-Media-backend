@@ -1,19 +1,33 @@
 import Post from "../models/Post.js";
 import User from "../models/User.js";
+import getDataUri from "../utils/dataUri.js";
+import cloudinary from "cloudinary";
 
 /* CREATE */
 export const createPost = async (req, res) => {
   try {
-    const { userId, description, picturePath } = req.body;
-    const user = await User.findById(userId);
+    const { description } = req.body;
+    const user = await User.findById(req.userAuth._id);
+
+    const picture = req.file;
+    // console.log(picture);
+
+    const pictureUri = getDataUri(picture);
+    // console.log(pictureUri.fileName);
+
+    const mycloud = await cloudinary.v2.uploader.upload(pictureUri.content);
+
     const newPost = new Post({
-      userId,
+      userId: req.userAuth._id,
       firstName: user.firstName,
       lastName: user.lastName,
       location: user.location,
       description,
+      picturePath: {
+        public_id: mycloud.public_id,
+        url: mycloud.secure_url,
+      },
       userPicturePath: user.picturePath,
-      picturePath,
       likes: {},
       comments: [],
     });
