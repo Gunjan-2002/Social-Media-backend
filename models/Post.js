@@ -38,6 +38,12 @@ const postSchema = mongoose.Schema(
         // required: true,
       },
     },
+    userDp: {
+      type: String,
+    },
+    postDp: {
+      type: String,
+    },
     likes: {
       type: Map,
       of: Boolean,

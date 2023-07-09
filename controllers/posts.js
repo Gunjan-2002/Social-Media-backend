@@ -28,6 +28,8 @@ export const createPost = async (req, res) => {
         url: mycloud.secure_url,
       },
       userPicturePath: user.picturePath,
+      userDp: user.dp,
+      postDp: mycloud.secure_url,
       likes: {},
       comments: [],
     });

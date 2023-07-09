@@ -35,6 +35,9 @@ const UserSchema = new mongoose.Schema(
         // required: true,
       },
     },
+    dp: {
+      type: String,
+    },
     friends: {
       type: Array,
       default: [],

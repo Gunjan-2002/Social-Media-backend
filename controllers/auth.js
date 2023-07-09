@@ -38,6 +38,7 @@ export const register = async (req, res) => {
         public_id: mycloud.public_id,
         url: mycloud.secure_url,
       },
+      dp: mycloud.secure_url,
       friends,
       location,
       occupation,
