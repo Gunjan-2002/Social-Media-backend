@@ -38,10 +38,12 @@ const UserSchema = new mongoose.Schema(
     dp: {
       type: String,
     },
-    friends: {
-      type: Array,
-      default: [],
-    },
+    friends: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
     location: String,
     occupation: String,
     viewedProfile: Number,
@@ -52,3 +54,9 @@ const UserSchema = new mongoose.Schema(
 
 const User = mongoose.model("User", UserSchema);
 export default User;
+
+
+// friends: {
+//   type: Array,
+//   default: [],
+// },
